@@ -49,11 +49,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	channel := ircURL.Path
+	channel := ircURL.Path[1:] // strip '/'
 	if channel == "" {
 		fmt.Fprintln(os.Stderr, "argument error: missing channel in IRC URL")
 		os.Exit(1)
 	}
+	channel = "#" + channel
 
 	cfg := irc.NewConfig("TitleBot", "titlebot", "TitleBot")
 	cfg.Version = "Mozilla/5.0 TitleBot/1.99999993"
@@ -86,6 +87,7 @@ func main() {
 		irc.CONNECTED,
 		func(conn *irc.Conn, line *irc.Line) {
 			log.Printf("Connected to %s", cfg.Server)
+			log.Printf("Joining %s", channel)
 			conn.Join(channel)
 		},
 	)
