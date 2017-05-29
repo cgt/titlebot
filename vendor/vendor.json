@@ -1,0 +1,49 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "CkjxTzNLzd3KXZS5fbXmG9KVu/4=",
+			"path": "github.com/fluffle/goirc/client",
+			"revision": "329a62d7d90841a3c3ac1197abd940afb81f7060",
+			"revisionTime": "2016-12-18T14:22:12Z"
+		},
+		{
+			"checksumSHA1": "TpJhYJVip8wTO9sgWbyQQOaTvZc=",
+			"path": "github.com/fluffle/goirc/logging",
+			"revision": "329a62d7d90841a3c3ac1197abd940afb81f7060",
+			"revisionTime": "2016-12-18T14:22:12Z"
+		},
+		{
+			"checksumSHA1": "NXxmFrZZ60MRX1YSnHSNe1kdfcA=",
+			"path": "github.com/fluffle/goirc/state",
+			"revision": "329a62d7d90841a3c3ac1197abd940afb81f7060",
+			"revisionTime": "2016-12-18T14:22:12Z"
+		},
+		{
+			"checksumSHA1": "JSHl8b3nI8EWvzm+uyrIqj2Hiu4=",
+			"path": "github.com/golang/mock/gomock",
+			"revision": "bd3c8e81be01eef76d4b503f5e687d2d1354d2d9",
+			"revisionTime": "2016-01-21T18:51:14Z"
+		},
+		{
+			"checksumSHA1": "vqc3a+oTUGX8PmD0TS+qQ7gmN8I=",
+			"path": "golang.org/x/net/html",
+			"revision": "48359f4f600b3a2d5cf657458e3f940021631a56",
+			"revisionTime": "2017-03-18T09:30:21Z"
+		},
+		{
+			"checksumSHA1": "00eQaGynDYrv3tL+C7l9xH0IDZg=",
+			"path": "golang.org/x/net/html/atom",
+			"revision": "48359f4f600b3a2d5cf657458e3f940021631a56",
+			"revisionTime": "2017-03-18T09:30:21Z"
+		},
+		{
+			"checksumSHA1": "fjMK2G5arnjllpoeBYeyf9Y2Iok=",
+			"path": "golang.org/x/net/proxy",
+			"revision": "48359f4f600b3a2d5cf657458e3f940021631a56",
+			"revisionTime": "2017-03-18T09:30:21Z"
+		}
+	],
+	"rootPath": "cgt.name/pkg/titlebot"
+}
