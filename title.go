@@ -62,7 +62,16 @@ func soleTitle(doc *html.Node) (title string, err error) {
 }
 
 func title(url string) (string, error) {
-	resp, err := http.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return "", err
+	}
+	req.Header.Set("User-Agent", "TitleBot/1.0 (+https://cgt.name/pkg/titlebot)")
+	req.Header.Set("Accept", "text/html")
+	req.Header.Set("Accept-Charset", "utf-8")
+	req.Header.Set("Accept-Language", "en")
+
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return "", err
 	}
