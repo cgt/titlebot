@@ -99,7 +99,6 @@ func main() {
 		},
 	)
 
-	go processURLs(c)
 	c.HandleFunc(irc.PRIVMSG, handlePRIVMSG)
 
 	if err := c.Connect(); err != nil {
@@ -119,33 +118,17 @@ func main() {
 	}
 }
 
-type titleRequest struct {
-	URL          *url.URL
-	ReturnTarget string // Channel or nick
-}
-
-var (
-	reURL = regexp.MustCompile(`\b(https?://\S*)\b`)
-	urls  = make(chan titleRequest)
-)
+var reURL = regexp.MustCompile(`\b(https?://\S*)\b`)
 
 func handlePRIVMSG(conn *irc.Conn, line *irc.Line) {
 	foundURLs := reURL.FindAllString(line.Text(), -1)
-	for _, u := range foundURLs {
-		x, err := url.Parse(u)
+	for _, x := range foundURLs {
+		u, err := url.Parse(x)
 		if err != nil {
 			continue
 		}
-		urls <- titleRequest{
-			URL:          x,
-			ReturnTarget: line.Target(),
-		}
-	}
-}
 
-func processURLs(c *irc.Conn) {
-	for req := range urls {
-		t, err := title(req.URL.String())
+		t, err := title(u.String())
 		if err != nil {
 			log.Print(err)
 			continue
@@ -153,10 +136,7 @@ func processURLs(c *irc.Conn) {
 		if t == "" {
 			continue
 		}
-		c.Privmsgf(
-			req.ReturnTarget,
-			"%v | %v",
-			t, req.URL,
-		)
+
+		conn.Privmsgf(line.Target(), "%v | %v", t, u)
 	}
 }
