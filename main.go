@@ -85,7 +85,7 @@ func main() {
 	c.HandleFunc(
 		irc.CONNECTED,
 		func(conn *irc.Conn, line *irc.Line) {
-			log.Print("Connected to %s", cfg.Server)
+			log.Printf("Connected to %s", cfg.Server)
 			conn.Join(channel)
 		},
 	)
