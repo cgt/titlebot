@@ -61,6 +61,10 @@ func main() {
 	cfg.QuitMessage = ""
 
 	cfg.Server = ircURL.Host
+	cfg.SSLConfig = &tls.Config{
+		ServerName:         ircURL.Hostname(),
+		InsecureSkipVerify: false,
+	}
 
 	if u := ircURL.User; u != nil {
 		if u.Username() != "" {
@@ -76,9 +80,7 @@ func main() {
 	}
 
 	if *flagInsecureSkipVerify {
-		cfg.SSLConfig = &tls.Config{
-			InsecureSkipVerify: true,
-		}
+		cfg.SSLConfig.InsecureSkipVerify = true
 	}
 
 	c := irc.Client(cfg)
