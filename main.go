@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/signal"
 	"regexp"
+	"strings"
 	"syscall"
 
 	irc "github.com/fluffle/goirc/client"
@@ -137,6 +138,7 @@ func handlePRIVMSG(conn *irc.Conn, line *irc.Line) {
 			log.Print(err)
 			continue
 		}
+		t = strings.TrimSpace(t)
 		if t == "" {
 			continue
 		}
