@@ -1,18 +1,28 @@
 package main // import "cgt.name/pkg/titlebot"
 
 import (
+	"context"
 	"crypto/tls"
+	"errors"
 	"flag"
 	"fmt"
 	"log"
+	"net/http"
 	"net/url"
 	"os"
 	"os/signal"
 	"regexp"
 	"strings"
 	"syscall"
+	"time"
 
+	"github.com/PuerkitoBio/goquery"
 	irc "github.com/fluffle/goirc/client"
+)
+
+var (
+	ErrUnsupportedContentType = errors.New("unsupported content type")
+	ErrNoTitle                = errors.New("empty or no title")
 )
 
 func usage() {
@@ -126,6 +136,9 @@ func main() {
 var reURL = regexp.MustCompile(`\b(https?://\S*)\b`)
 
 func handlePRIVMSG(conn *irc.Conn, line *irc.Line) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
 	foundURLs := reURL.FindAllString(line.Text(), -1)
 	for _, x := range foundURLs {
 		u, err := url.Parse(x)
@@ -133,16 +146,59 @@ func handlePRIVMSG(conn *irc.Conn, line *irc.Line) {
 			continue
 		}
 
-		t, err := title(u.String())
+		t, err := getTitle(ctx, u)
 		if err != nil {
 			log.Print(err)
 			continue
 		}
-		t = strings.TrimSpace(t)
-		if t == "" {
-			continue
-		}
 
-		conn.Privmsgf(line.Target(), "%v | %v", t, u)
+		conn.Privmsgf(line.Target(), "%v | %v", t, u.Hostname())
 	}
+}
+
+func newRequest(ctx context.Context, method, url string) *http.Request {
+	req, err := http.NewRequest(method, url, nil)
+	if err != nil {
+		panic(err)
+	}
+
+	req.Header.Set("User-Agent", "TitleBot/1.0 (+https://cgt.name/pkg/titlebot)")
+	req.Header.Set("Accept", "text/html")
+	req.Header.Set("Accept-Charset", "utf-8")
+	req.Header.Set("Accept-Language", "en")
+
+	return req.WithContext(ctx)
+}
+
+func getTitle(ctx context.Context, u *url.URL) (string, error) {
+	res, err := http.DefaultClient.Do(newRequest(ctx, "HEAD", u.String()))
+	if err != nil {
+		return "", err
+	}
+	res.Body.Close()
+
+	ct := res.Header.Get("Content-Type")
+	if ct != "text/html" && !strings.HasPrefix(ct, "text/html;") {
+		return "", ErrUnsupportedContentType
+	}
+	if res.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("non-OK status code: %d", res.StatusCode)
+	}
+
+	res, err = http.DefaultClient.Do(newRequest(ctx, "GET", u.String()))
+	if err != nil {
+		return "", err
+	}
+	// res.Body is closed by NewDocumentFromResponse
+	doc, err := goquery.NewDocumentFromResponse(res)
+	if err != nil {
+		return "", err
+	}
+
+	title := doc.Find("title").First().Text()
+	title = strings.TrimSpace(title)
+	if title == "" {
+		return "", ErrNoTitle
+	}
+	return title, nil
 }

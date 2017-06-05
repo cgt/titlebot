@@ -23,9 +23,3 @@ SHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE
 FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
-
----
-
-Code in the title.go file adapted from package gopl.io/ch5/title3:
-  Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-  License: https://creativecommons.org/licenses/by-nc-sa/4.0/
