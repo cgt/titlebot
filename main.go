@@ -148,7 +148,9 @@ func handlePRIVMSG(conn *irc.Conn, line *irc.Line) {
 
 		t, err := getTitle(ctx, u)
 		if err != nil {
-			log.Print(err)
+			if err != ErrNoTitle && err != ErrUnsupportedContentType {
+				log.Print(err)
+			}
 			continue
 		}
 
