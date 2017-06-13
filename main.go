@@ -137,6 +137,7 @@ func main() {
 
 	if err := c.Connect(); err != nil {
 		log.Printf("Error connecting to %s: %v", cfg.Server, err)
+		return
 	}
 
 	quit := make(chan os.Signal, 1)
@@ -146,7 +147,11 @@ func main() {
 		select {
 		case <-quit:
 			log.Printf("Received signal to shut down")
-			c.Quit()
+			if c.Connected() {
+				c.Quit()
+			} else {
+				return
+			}
 		case <-disconnected:
 			return
 		}
