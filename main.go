@@ -100,11 +100,9 @@ func main() {
 		irc.CONNECTED,
 		func(conn *irc.Conn, line *irc.Line) {
 			log.Printf("Connected to %s", cfg.Server)
-			log.Printf("Joining %s", channel)
 			conn.Join(channel)
 		},
 	)
-
 	disconnected := make(chan struct{})
 	c.HandleFunc(
 		irc.DISCONNECTED,
@@ -113,11 +111,32 @@ func main() {
 			disconnected <- struct{}{}
 		},
 	)
+	c.HandleFunc(
+		irc.JOIN,
+		func(conn *irc.Conn, line *irc.Line) {
+			log.Printf("Joined %s", line.Target())
+		},
+	)
+	c.HandleFunc(
+		irc.PART,
+		func(conn *irc.Conn, line *irc.Line) {
+			log.Printf("Parted %s", line.Target())
+		},
+	)
+	c.HandleFunc(
+		irc.KICK,
+		func(conn *irc.Conn, line *irc.Line) {
+			log.Printf(
+				"Kicked from %s by %s: %s",
+				line.Args[0], line.Src, line.Args[2],
+			)
+		},
+	)
 
 	c.HandleFunc(irc.PRIVMSG, handlePRIVMSG)
 
 	if err := c.Connect(); err != nil {
-		log.Printf("Cannot connect to %s: %v", cfg.Server, err)
+		log.Printf("Error connecting to %s: %v", cfg.Server, err)
 	}
 
 	quit := make(chan os.Signal, 1)
@@ -126,6 +145,7 @@ func main() {
 	for {
 		select {
 		case <-quit:
+			log.Printf("Received signal to shut down")
 			c.Quit()
 		case <-disconnected:
 			return
