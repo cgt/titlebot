@@ -95,6 +95,7 @@ func main() {
 	}
 
 	c := irc.Client(cfg)
+	c.EnableStateTracking()
 
 	c.HandleFunc(
 		irc.CONNECTED,
@@ -114,22 +115,28 @@ func main() {
 	c.HandleFunc(
 		irc.JOIN,
 		func(conn *irc.Conn, line *irc.Line) {
-			log.Printf("Joined %s", line.Target())
+			if line.Nick == conn.Me().Nick {
+				log.Printf("Joined %s", line.Target())
+			}
 		},
 	)
 	c.HandleFunc(
 		irc.PART,
 		func(conn *irc.Conn, line *irc.Line) {
-			log.Printf("Parted %s", line.Target())
+			if line.Nick == conn.Me().Nick {
+				log.Printf("Parted %s", line.Target())
+			}
 		},
 	)
 	c.HandleFunc(
 		irc.KICK,
 		func(conn *irc.Conn, line *irc.Line) {
-			log.Printf(
-				"Kicked from %s by %s: %s",
-				line.Args[0], line.Src, line.Args[2],
-			)
+			if line.Args[1] == conn.Me().Nick {
+				log.Printf(
+					"Kicked from %s by %s: %s",
+					line.Args[0], line.Src, line.Args[2],
+				)
+			}
 		},
 	)
 
