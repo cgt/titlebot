@@ -165,7 +165,7 @@ func main() {
 	}
 }
 
-var reURL = regexp.MustCompile(`\b(https?://\S*)\b`)
+var reURL = regexp.MustCompile(`(?i)\b(https?://\S*)\b`)
 
 func handlePRIVMSG(conn *irc.Conn, line *irc.Line) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
