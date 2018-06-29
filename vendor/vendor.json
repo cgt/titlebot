@@ -3,58 +3,88 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "oGTKlmozgIcLXe+ebdAVWmwuYIQ=",
+			"checksumSHA1": "l1dgFJfzGLG/2AEPyt6ADsnVLPQ=",
 			"path": "github.com/PuerkitoBio/goquery",
-			"revision": "2dc93891ab3bcc1dbc2cbf9bc6376c37f6e6f289",
-			"revisionTime": "2017-05-20T19:45:20Z"
+			"revision": "dc2ec5c7ca4d9aae063b79b9f581dd3ea6afd2b2",
+			"revisionTime": "2018-06-07T15:06:10Z"
 		},
 		{
-			"checksumSHA1": "2rWSos1D+xqNSGkvEMOG3pntod8=",
+			"checksumSHA1": "Q/2QpI7E35SsNYfaxLsWHFry9k4=",
 			"path": "github.com/andybalholm/cascadia",
-			"revision": "349dd0209470eabd9514242c688c403c0926d266",
-			"revisionTime": "2016-12-24T14:14:13Z"
+			"revision": "901648c87902174f774fac311d7f176f8647bdaa",
+			"revisionTime": "2018-02-20T18:43:36Z"
 		},
 		{
-			"checksumSHA1": "CkjxTzNLzd3KXZS5fbXmG9KVu/4=",
+			"checksumSHA1": "YvHNTGr9jf2KkU2RyfE3IroAIR8=",
+			"path": "github.com/fluffle/goirc",
+			"revision": "fc1dfa1ceb8897bcaa5231b560b9319591d4ab0a",
+			"revisionTime": "2018-02-16T21:04:56Z"
+		},
+		{
+			"checksumSHA1": "HrPLmQx7BJcskXQJ6GBAzd56pPg=",
 			"path": "github.com/fluffle/goirc/client",
-			"revision": "329a62d7d90841a3c3ac1197abd940afb81f7060",
-			"revisionTime": "2016-12-18T14:22:12Z"
+			"revision": "fc1dfa1ceb8897bcaa5231b560b9319591d4ab0a",
+			"revisionTime": "2018-02-16T21:04:56Z"
 		},
 		{
 			"checksumSHA1": "TpJhYJVip8wTO9sgWbyQQOaTvZc=",
 			"path": "github.com/fluffle/goirc/logging",
-			"revision": "329a62d7d90841a3c3ac1197abd940afb81f7060",
-			"revisionTime": "2016-12-18T14:22:12Z"
+			"revision": "fc1dfa1ceb8897bcaa5231b560b9319591d4ab0a",
+			"revisionTime": "2018-02-16T21:04:56Z"
 		},
 		{
-			"checksumSHA1": "NXxmFrZZ60MRX1YSnHSNe1kdfcA=",
+			"checksumSHA1": "3Cz890/JT5THZl1srD1Udt0ggM0=",
+			"path": "github.com/fluffle/goirc/logging/glog",
+			"revision": "fc1dfa1ceb8897bcaa5231b560b9319591d4ab0a",
+			"revisionTime": "2018-02-16T21:04:56Z"
+		},
+		{
+			"checksumSHA1": "Yf62P0DJRuCjqtOQAAOwrUJedao=",
 			"path": "github.com/fluffle/goirc/state",
-			"revision": "329a62d7d90841a3c3ac1197abd940afb81f7060",
-			"revisionTime": "2016-12-18T14:22:12Z"
+			"revision": "fc1dfa1ceb8897bcaa5231b560b9319591d4ab0a",
+			"revisionTime": "2018-02-16T21:04:56Z"
 		},
 		{
-			"checksumSHA1": "JSHl8b3nI8EWvzm+uyrIqj2Hiu4=",
+			"checksumSHA1": "HmbftipkadrLlCfzzVQ+iFHbl6g=",
+			"path": "github.com/golang/glog",
+			"revision": "23def4e6c14b4da8ac2ed8007337bc5eb5007998",
+			"revisionTime": "2016-01-25T20:49:56Z"
+		},
+		{
+			"checksumSHA1": "kpDdn8FTTpe3DOSH7qDyfvIIzrY=",
 			"path": "github.com/golang/mock/gomock",
-			"revision": "bd3c8e81be01eef76d4b503f5e687d2d1354d2d9",
-			"revisionTime": "2016-01-21T18:51:14Z"
+			"revision": "22bbf0ddf08105dfa364d0a2fa619dfa71014af5",
+			"revisionTime": "2018-05-03T01:48:54Z"
 		},
 		{
-			"checksumSHA1": "vqc3a+oTUGX8PmD0TS+qQ7gmN8I=",
+			"checksumSHA1": "GtamqiJoL7PGHsN454AoffBFMa8=",
+			"path": "golang.org/x/net/context",
+			"revision": "4cb1c02c05b0e749b0365f61ae859a8e0cfceed9",
+			"revisionTime": "2018-06-28T17:19:52Z"
+		},
+		{
+			"checksumSHA1": "6WbIuKGVDXQWwDjjEYx4fzLfQO8=",
 			"path": "golang.org/x/net/html",
-			"revision": "48359f4f600b3a2d5cf657458e3f940021631a56",
-			"revisionTime": "2017-03-18T09:30:21Z"
+			"revision": "4cb1c02c05b0e749b0365f61ae859a8e0cfceed9",
+			"revisionTime": "2018-06-28T17:19:52Z"
 		},
 		{
-			"checksumSHA1": "00eQaGynDYrv3tL+C7l9xH0IDZg=",
+			"checksumSHA1": "xwhqe/igHQrY3IhqDwzo6j7qpm8=",
 			"path": "golang.org/x/net/html/atom",
-			"revision": "48359f4f600b3a2d5cf657458e3f940021631a56",
-			"revisionTime": "2017-03-18T09:30:21Z"
+			"revision": "4cb1c02c05b0e749b0365f61ae859a8e0cfceed9",
+			"revisionTime": "2018-06-28T17:19:52Z"
 		},
 		{
-			"checksumSHA1": "fjMK2G5arnjllpoeBYeyf9Y2Iok=",
+			"checksumSHA1": "W+3cWL5KjepzF1XvyMSBUYfa8x8=",
+			"path": "golang.org/x/net/internal/socks",
+			"revision": "4cb1c02c05b0e749b0365f61ae859a8e0cfceed9",
+			"revisionTime": "2018-06-28T17:19:52Z"
+		},
+		{
+			"checksumSHA1": "UrFs0T7kkYsUxJG5bsJt7KB8ejI=",
 			"path": "golang.org/x/net/proxy",
-			"revision": "48359f4f600b3a2d5cf657458e3f940021631a56",
-			"revisionTime": "2017-03-18T09:30:21Z"
+			"revision": "4cb1c02c05b0e749b0365f61ae859a8e0cfceed9",
+			"revisionTime": "2018-06-28T17:19:52Z"
 		}
 	],
 	"rootPath": "cgt.name/pkg/titlebot"
