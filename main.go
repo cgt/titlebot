@@ -215,7 +215,7 @@ func getTitle(ctx context.Context, u *url.URL) (string, error) {
 	if ct != "text/html" && !strings.HasPrefix(ct, "text/html;") {
 		return "", ErrUnsupportedContentType
 	}
-	if res.StatusCode != http.StatusOK {
+	if res.StatusCode != http.StatusOK && res.StatusCode != http.StatusMethodNotAllowed {
 		return "", fmt.Errorf("non-OK status code: %d", res.StatusCode)
 	}
 
