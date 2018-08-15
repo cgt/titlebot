@@ -32,6 +32,17 @@ func usage() {
 	flag.PrintDefaults()
 }
 
+func channelFromURL(u *url.URL) string {
+	if u.Path == "/" {
+		return ""
+	}
+	channel := u.Path[1:] // strip leading '/'
+	if !strings.HasPrefix(channel, "#") {
+		channel = "#" + channel
+	}
+	return channel
+}
+
 func main() {
 	flag.Usage = usage
 
@@ -60,12 +71,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	channel := ircURL.Path[1:] // strip '/'
+	channel := channelFromURL(ircURL)
 	if channel == "" {
 		fmt.Fprintln(os.Stderr, "argument error: missing channel in IRC URL")
 		os.Exit(1)
 	}
-	channel = "#" + channel
 
 	cfg := irc.NewConfig("TitleBot", "titlebot", "TitleBot")
 	cfg.Version = "Mozilla/5.0 TitleBot/1.99999993"
