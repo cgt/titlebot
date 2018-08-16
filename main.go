@@ -27,7 +27,7 @@ var (
 
 func usage() {
 	fmt.Fprintf(os.Stderr, "Usage: %s [options] <IRC URL>\n\n", os.Args[0])
-	fmt.Fprintf(os.Stderr, "Example:\n  %s -noverify ircs://mynick:password123@irc.example.net/mychannel\n\n", os.Args[0])
+	fmt.Fprintf(os.Stderr, "Example:\n  %s -noverify ircs://mynick:password123@irc.example.net/mychannel \"#extraChannel\" \"#another\"\n\n", os.Args[0])
 	fmt.Fprintf(os.Stderr, "Options:\n")
 	flag.PrintDefaults()
 }
@@ -71,10 +71,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	channel := channelFromURL(ircURL)
-	if channel == "" {
-		fmt.Fprintln(os.Stderr, "argument error: missing channel in IRC URL")
-		os.Exit(1)
+	var channels []string
+	if c := channelFromURL(ircURL); c != "" {
+		channels = append(channels, c)
+	}
+	if flag.NArg() > 1 {
+		channels = append(channels, flag.Args()[1:]...)
 	}
 
 	cfg := irc.NewConfig("TitleBot", "titlebot", "TitleBot")
@@ -111,7 +113,9 @@ func main() {
 		irc.CONNECTED,
 		func(conn *irc.Conn, line *irc.Line) {
 			log.Printf("Connected to %s", cfg.Server)
-			conn.Join(channel)
+			for _, channel := range channels {
+				conn.Join(channel)
+			}
 		},
 	)
 	disconnected := make(chan struct{})
